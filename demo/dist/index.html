@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#252c23">
+  <meta name="description" content="控制像素造林者在一座风沙海岛上种树，见证草地、动物和溪流逐渐涌现。种种树可玩原型。">
+  <title>种种树 · 海岛造林</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="game-core.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">木</span><h1>种种树</h1><span class="demo-label">海岛原型</span></div>
+      <div class="header-actions"><button id="journal-button" class="text-button">造林手记 <span id="journal-count">1</span></button><button id="restart" class="text-button">重新开始</button></div>
+    </header>
+    <main class="layout">
+      <section class="play-column" aria-label="海岛地图">
+        <div class="map-frame" id="map-frame">
+          <canvas id="map" tabindex="0" aria-label="海岛地图：WASD 或方向键移动角色，E 或空格在身边种树；点击土地让角色走过去。"></canvas>
+          <div class="map-hud">
+            <div class="live-stat"><span class="stat-label">存活树木</span><strong id="live-count">0</strong><span class="stat-unit">棵</span></div>
+            <div class="hud-divider"></div>
+            <div class="small-stat"><span class="stat-label">正在扎根</span><strong id="seed-count">0</strong></div>
+            <div class="small-stat"><span class="stat-label">自然凋零</span><strong id="dead-count">0</strong></div>
+          </div>
+          <div class="map-coordinate" aria-hidden="true">一座小岛 · 从一棵树开始</div>
+          <div class="empty-hint" id="empty-hint"><span>让这座岛，重新生长</span><small>WASD 移动角色 · E / 空格在身边种树</small></div>
+          <div class="note" id="note" role="status"><span id="note-title">造林手记 · 01</span><p id="note-text">海风卷起沙粒，一两棵苗挡不住。先在这座小岛上，种下第一棵。</p></div>
+          <div class="map-tools"><button id="zoom-out" aria-label="缩小地图">−</button><button id="zoom-fit" aria-label="查看整片地图">全景</button><button id="zoom-in" aria-label="放大地图">+</button></div>
+          <div id="toast" class="toast" role="status"></div>
+          <div class="ending" id="ending" aria-hidden="true"><span>林海涌现</span><p>没有哪一棵树，可以独自改变这座岛。<br>万千渺小生命汇聚于此，希望就此涌现。</p><small>致每一个让荒地重新生长的人</small></div>
+        </div>
+        <div class="map-footer"><span><kbd>WASD / 方向键</kbd> 移动 <span class="footer-gap"><kbd>按住 E / 空格</kbd> 边走边种</span></span><span class="pan-instruction">点击土地走过去 · 右键平移</span></div>
+        <div class="character-controls"><div class="touch-dpad" aria-label="角色方向控制"><button data-move="up" aria-label="角色向上移动">↑</button><button data-move="left" aria-label="角色向左移动">←</button><button data-move="down" aria-label="角色向下移动">↓</button><button data-move="right" aria-label="角色向右移动">→</button></div><span id="player-position" class="player-position">造林者 · 岛中央</span><button id="plant-button" class="plant-button">种一棵 <kbd>E / 空格</kbd><small>按住连续种植</small></button></div>
+      </section>
+      <aside class="sidebar">
+        <section class="environment">
+          <div class="eyebrow">这座小岛</div><h2 id="phase-name">风沙孤岛</h2><p id="phase-description">海风卷起沙粒，先让耐旱的树苗扎下根。</p>
+          <div class="wind-label"><span>风沙强度</span><strong id="wind-label">98%</strong></div><div class="wind-track"><span id="wind-bar"></span></div>
+        </section>
+        <section class="species-section" aria-label="选择树种">
+          <div class="section-heading"><h3>种下一棵</h3><span>无需资源</span></div>
+          <button class="species selected" data-species="saxaul" aria-pressed="true"><canvas class="species-icon" width="48" height="48" aria-hidden="true"></canvas><span class="species-info"><strong>梭梭 <small>1</small></strong><span>耐旱先锋 · 更容易活下来</span></span><span class="species-chance" id="chance-saxaul">61%</span></button>
+          <button class="species" data-species="willow" aria-pressed="false"><canvas class="species-icon" width="48" height="48" aria-hidden="true"></canvas><span class="species-info"><strong>沙柳 <small>2</small></strong><span>防风主力 · 为邻居挡风沙</span></span><span class="species-chance" id="chance-willow">42%</span></button>
+          <button class="species" data-species="flower" aria-pressed="false"><canvas class="species-icon" width="48" height="48" aria-hidden="true"></canvas><span class="species-info"><strong>花棒 <small>3</small></strong><span>固沙能手 · 帮助土地留住水</span></span><span class="species-chance" id="chance-flower">31%</span></button>
+          <p class="chance-caption">右侧为角色附近的扎根概率；成片树木能相互庇护。</p>
+        </section>
+        <section class="progress-section" aria-label="生态演变进度">
+          <div class="section-heading"><h3>生命慢慢汇聚</h3><span id="progress-label">0 / 80</span></div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <ol class="milestones"><li data-phase="0" class="active"><span>孤岛</span><small>0 棵</small></li><li data-phase="1"><span>生机</span><small>12 棵</small></li><li data-phase="2"><span>草甸</span><small>36 棵</small></li><li data-phase="3"><span>林海</span><small>80 棵</small></li></ol>
+          <p id="next-milestone">再让 12 棵树扎根，第一片绿色就会出现。</p>
+        </section>
+        <div class="sidebar-bottom"><button id="speed" class="speed-button" aria-label="切换时间流速">时间 ×1 <span>加速等待</span></button><p class="core-rule">走到土地上，亲手种下一棵。<br>草、动物和水，会自己归来。</p><details><summary>操作说明</summary><p>WASD 或方向键移动角色，也可以点击岛上的土地让角色走过去。E / 空格或“种一棵”按钮在角色身边种树，按住可边走边种。1 / 2 / 3 切换树种。</p><p>树苗约 3 秒后判定存活，棕色枯枝表示枯死，可以补种。海岸是地图边界，角色不能走进海里。右键拖动平移，滚轮缩放。</p><p>这是快速试玩版，生态门槛为 12 / 36 / 80 棵存活树。结局后可以继续种树。</p></details></div>
+      </aside>
+    </main>
+    <footer class="page-footer"><span>个体微小，生命相连。</span><span>一座小岛 · 三种树苗 · 无数次生长</span></footer>
+  </div>
+  <dialog id="journal"><div class="dialog-heading"><span class="eyebrow">一棵一棵，慢慢汇聚</span><button id="close-journal" aria-label="关闭手记">×</button></div><h2>造林手记</h2><div id="journal-entries"></div><p class="journal-footnote">文本为本原型的叙事创作。</p></dialog>
+</body>
+</html>

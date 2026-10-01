@@ -1,0 +1,9 @@
+.openai/
+.sites-runtime/
+.agents/
+.codex/
+node_modules/
+*.tar.gz
+*.log
+.env
+.env.local
