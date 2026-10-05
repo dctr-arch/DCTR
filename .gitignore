@@ -7,3 +7,18 @@ node_modules/
 *.log
 .env
 .env.local
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local game projects and backups
+/local-backups/
+/ISLAND-main.zip
+/新建游戏项目/
+/傻逼/
