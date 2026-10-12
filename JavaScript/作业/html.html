@@ -1,0 +1,442 @@
+                            <!-- :%*++=:        ..::-=-=*::..:::::::..::..
+                            --:.                :*##%+===-::::-=+*#%%#+::.
+                                            .-=++=-:- :=-===:.    ..-+#%%%*-....
+                                         .-+**=-...        ..:.   ..  -=*#%%#+-
+                                       .=+:.     ..        ..     ..::..-**##%%+
+                                      -*:        .       .- ...    .:.::.:=**+*#
+                                    .+=                   -=  ..  .. .:-: -++***
+                                   .=.           .         =+   .:  .. .-:-++++*
+                                  -=            -:          ++   .:.     -=*+++*
+                                 =*       .    .#.           *=  .:::     :**+++
+                                -*       .. .  =#            -=-  =:=:     -#*++
+                               .+.      .:...  **           :.=.+. --*:     -=++
+                               +=       :.--   **           ..+:==  :+*      +#*
+                              +*       :.:+.   ++.  .        -#- .=  :*-     :*%
+                              @=       :.:=    =--- -:   ..--=+.   -:.-#.     =%
+                             -@-      ..-++.   :..==: :....:..=-===:. .*=     :%
+                             +*:      ..-.=-=-::   .        -+: -++*+=:+*     .+
+                             =+:      ..:.=:.:-===:.        .  ..===: .-#=     +
+                             -+-  .:::.    :=-.-**+.          .=- :==   +#.    +
+                             -=+ -+==+*-  ==    :--            -+=++- . =%-   .+
+                             ::*=*+====*#+=  .=-.=*             .:.. .. -%+    =
+                               ..===+=--+@+   :+++-                     -%+    =
+                                   -*==--=%+    .         ....      .:  ##=    :
+                                   :*===--+%#:          :------.       *%#.    =
+                                   .===+=-=*#%.        :=::::::-.    :*#**    :=
+                                   .:--*=-=#-+*:  :.   :=:::::-:=. :*%%+#+   .+#
+                                   .-:=**-+#:-=+*=:     :-------==+#+=%*%-   :**
+                                    - =*+-#-  --=#**+=-.       -**+==-**+    +**
+                                    = :+--*     =*==+++**+==-=++----:..:    :**%
+                                    =. ==-:     *+=++++++**%@*::---.   .    =**@
+                                    := :*:     +@#%@@@@@@@@@@#::::-    .   :+*%@
+         ...::...                 .:=*.=+     -%@@@@@@@@#+=-*+::::=-:. .  .+##@@
+   -::.:.        ..............:#%@@@@%=    .--=%%@@@@@#:::=-:::::-=--:.  =###@@
+    :::=:.      .         .    =@@@@@@:    :------=%@@@%::::::. :-::::-= .***%@@
+       =-:...:. ...:::.  .    :@@@@@@:   .---------#@@@- .:-:::::.    := :***%@@
+       -:..          .:---:.  #@@@@%-   +*--------*@@@@   :--=--:     :* -*#%@@@
+                         ...:+@@@@@+  .#@@#-----=#@@@@@*.    :=:-:..=#@@.-#*%@@@
+                             #@@@@#. .#@@@@%#*#%@@@@@@@@%=. .   .-*%@@@@+-###@@@
+                             #@@@@+  *@@@@@@@@@@@@@@@@@@@@@%%#*#%@%@@@@@%*###%@@
+                             .%@@@= .%@@@@@@@@@@@@@@@@@@@@@@@@@@@@=@%#@@@%###%@@ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Introduction</title>
+    </head>
+    <div id="column"></div>
+    <nav id="main_nav">
+        <button data-section="overview" class="active">
+            <span>个人总览</span>
+            <small>-/////////-</small>
+        </button>
+        <button data-section="about">
+            <span>我</span>
+            <small>-/////////-</small>
+        </button>
+        <button data-section="projects">
+            <span>做的项目</span>
+            <small>-/////////-</small>
+        </button>
+        <button data-section="hobbies">
+            <span>爱好</span>
+            <small>-/////////-</small>
+        </button>
+    </nav>
+
+
+
+
+
+    <body>
+        <section id="overview" class="stage_on">
+            <h1>个人总览</h1>
+            <p>This is an overview of website.</p>
+        </section>
+
+        <section id="about" class="stage_off">
+            <h1>我</h1>
+            <p>This is about me.</p>
+        </section>
+
+        <section id="projects" class="stage_off">
+            <h1>做的项目</h1>
+            <p>These are my projects.</p>
+        </section>
+
+        <section id="hobbies" class="stage_off">
+            <h1>爱好</h1>
+            <p>These are my hobbies.</p>
+        </section>
+
+        <script>
+            const nav = document.getElementById("main_nav");
+
+            let currentSection = document.getElementById("overview");
+            let currentButton = nav.querySelector('[data-section="overview"]');
+
+            function switch_section(nextSection, nextButton) {
+                currentSection.classList.remove("stage_on");
+                currentSection.classList.add("stage_off");
+                currentButton.classList.remove("active");
+
+                // 把打开的关上
+  
+                nextSection.classList.remove("stage_off");
+                nextSection.classList.add("stage_on");
+                nextButton.classList.add("active");
+                // 把对应的打开
+
+                currentSection = nextSection;
+                currentButton = nextButton;
+                // 更新
+
+            }
+            
+
+            nav.addEventListener("click", function(event) {
+                const button = event.target.closest("button[data-section]");
+                if (!button) 
+                return;
+                const sectionId = button.getAttribute("data-section");
+                const nextSection = document.getElementById(sectionId);
+
+                switch_section(nextSection, button);
+            });
+
+        </script>
+    </body>
+
+    <style>
+        body{
+            background-color: #202020;
+        }
+        #column{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 13.9vw;
+            width: 2px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(89, 89, 89, 0.55) 0 2px,
+                transparent 2px 5px
+            );
+
+        }
+        .stage_off{
+            display: none;
+        }
+        .stage_on{
+            display: block;
+        }
+                
+        nav button.active {
+            background: #e8e6dc;
+            color: #151515;
+
+            text-shadow:
+                0 0 1.387px #e1e1e0,
+                0 0 2.774px #e1e1e0;
+        }
+
+        nav button.active small {
+            opacity: 0;
+}
+        nav button:not(.active):hover {
+            background: #e8e6dc;
+            color: #151515;
+        }
+
+        nav button.active::before {
+            background-color: #dabb65;
+
+            /* 鹰角：3.25rem */
+            height: 36.063px;
+        }
+
+        nav button small {
+            position: relative;
+            z-index: 2;
+
+            color: rgba(255, 255, 255, 0.3);
+
+            /* 鹰角：.85308rem */
+            font-size: 9.466px;
+
+            /* 鹰角：-.01704rem */
+            letter-spacing: -0.189px;
+
+            line-height: 1.172;
+
+            transition:
+                color 0.2s,
+                opacity 0.2s;
+        }
+
+        nav button span{
+            position: relative;
+            z-index: 2;
+
+            /* 鹰角：1.56396rem */
+            font-size: 17.354px;
+
+            font-weight: 400;
+
+            /* 中文布局原版 */
+            line-height: 1.159;
+
+            /* 鹰角：-.03132rem */
+            letter-spacing: -0.348px;
+
+            transition:
+                color 0.2s,
+                text-shadow 0.2s;
+        }
+
+        /* nav button {
+
+            border-radius: 6px;
+
+            width: 100%;
+            height: 8.5vh;
+            
+
+            display: flex;
+            align-items: center;
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+            
+
+            padding-left: 20px;
+            
+
+            font-size: 0.9vw;
+            letter-spacing: 2px;
+
+            position: relative; 
+
+            color: #a0a0a0; 
+            background: rgba(255, 255, 255, 0.05);
+            
+
+            transition: all 0.3s ease;
+} */
+
+        nav button {
+            box-sizing: border-box;
+            position: relative;
+            z-index: 0;
+
+            /* 鹰角：16.25rem × 5.125rem */
+            width: 180.315px;
+            height: 56.869px;
+
+            /* 中文布局原版：
+            1.42176rem 0 0 1.99056rem */
+            padding: 15.776px 0 0 22.088px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            border: 0;
+
+            /* 鹰角：.379rem */
+            border-radius: 4.205px;
+
+            /* 原版未选中底板 */
+            background: rgba(55, 55, 57, 0.6);
+
+            color: rgba(255, 255, 255, 0.92);
+
+            text-align: left;
+            cursor: pointer;
+
+            overflow: visible;
+
+            transition:
+                color 0.2s,
+                background-color 0.2s;
+        }
+
+
+        /* button::before {
+            content: "";
+            position:absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 15px;
+            background: #5d5d5a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+} */
+        nav button::before {
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+
+            /* 鹰角：.875rem */
+            left: 9.709px;
+
+            transform: translateY(-50%);
+
+            /* .3125rem × 1rem */
+            width: 3.468px;
+            height: 11.096px;
+
+            background: #818081;
+
+            /* .1875rem */
+            border-radius: 2.081px;
+
+            transition:
+                height 0.2s,
+                background-color 0.2s;
+}
+        
+        nav button.active::after {
+            opacity: 0.5;
+}
+
+
+        nav button.active::before {
+            content: "";
+            position:absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 45px;
+            background: #d7b507cf;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+}
+
+
+        nav button::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            /* 从按钮左边向外延伸 */
+            right: 100%;
+
+            /* 鹰角：20rem */
+            width: 221.926px;
+
+            height: 100%;
+
+            background-color: #f7cd5c;
+
+            background-image: linear-gradient(
+                -45deg,
+
+                transparent 0,
+                transparent 20.5805%,
+
+                #fff 20.5805%,
+                #fff 29.4195%,
+
+                transparent 29.4195%,
+                transparent 70.5805%,
+
+                #fff 70.5805%,
+                #fff 79.4195%,
+
+                transparent 79.4195%,
+                transparent 100%
+            );
+
+            background-repeat: repeat;
+
+            /* 鹰角：.5rem .5rem */
+            background-size: 5.548px 5.548px;
+
+            -webkit-mask-image: linear-gradient(
+                270deg,
+                transparent 0,
+                #fff 5.548px,
+                #fff calc(100% - 110.963px),
+                transparent 100%
+            );
+
+            mask-image: linear-gradient(
+                270deg,
+                transparent 0,
+                #fff 5.548px,
+                #fff calc(100% - 110.963px),
+                transparent 100%
+            );
+
+            opacity: 0;
+
+            /* 放到按钮后面 */
+            z-index: -1;
+
+            pointer-events: none;
+
+            transition: opacity 0.2s;
+        }
+
+        /* nav {
+        position: fixed;
+
+        left: 13vw;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 12vw;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;    } */
+
+        nav {
+        position: fixed;
+
+        left: 13vw;
+        top: 50%;
+        transform: translateY(-50%);
+
+        /* 鹰角：16.25rem */
+        width: 180.315px;
+
+        display: flex;
+        flex-direction: column;
+
+        /* 鹰角每个项目之间 1.4375rem */
+        gap: 15.951px;
+    }
+
+    </style>
+</html>
