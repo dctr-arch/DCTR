@@ -39,404 +39,193 @@
                              #@@@@+  *@@@@@@@@@@@@@@@@@@@@@%%#*#%@%@@@@@%*###%@@
                              .%@@@= .%@@@@@@@@@@@@@@@@@@@@@@@@@@@@=@%#@@@%###%@@ -->
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
+        
         <title>Introduction</title>
+        <link rel="stylesheet" href="css.css">
     </head>
+    <body>
     <div id="column"></div>
+    <div id="row"></div>
     <nav id="main_nav">
-        <button data-section="overview" class="active">
-            <span>个人总览</span>
-            <small>-/////////-</small>
-        </button>
-        <button data-section="about">
-            <span>我</span>
-            <small>-/////////-</small>
-        </button>
-        <button data-section="projects">
-            <span>做的项目</span>
-            <small>-/////////-</small>
-        </button>
-        <button data-section="hobbies">
-            <span>爱好</span>
-            <small>-/////////-</small>
-        </button>
+        <button type="button" data-section="overview" class="active"><span>内容总览</span><small>-/////////-</small></button>
+        <button type="button" data-section="about"><span>个人档案</span><small>-/////////-</small></button>
+        <button type="button" data-section="life"><span>生活记录</span><small>-/////////-</small></button>
+        <button type="button" data-section="games"><span>游戏</span><small>-/////////-</small></button>
+        <button type="button" data-section="anime"><span>动漫</span><small>-/////////-</small></button>
+        <button type="button" data-section="exploring"><span>思考与探索</span><small>-/////////-</small></button>
     </nav>
 
 
 
 
 
-    <body>
+        <main>
         <section id="overview" class="stage_on">
-            <h1>个人总览</h1>
-            <p>This is an overview of website.</p>
+            
+                <nav id="overview_nav">
+                    <button type="button" class="overview_button" data-section="about">个人档案</button>
+                    <button type="button" class="overview_button" data-section="games">游戏</button>
+                    <button type="button" class="overview_button" data-section="anime">动漫</button>
+                    <button type="button" class="overview_button" data-section="life">生活记录</button>
+                    <button type="button" class="overview_button" data-section="exploring">思考与探索</button>
+
+                </nav>
+            
         </section>
 
         <section id="about" class="stage_off">
-            <h1>我</h1>
-            <p>This is about me.</p>
+            <div id="self_introdction">
+                <article id="caption">
+                    <h1>我</h1>
+                    <p>我是一名BNBU的游戏设计专业的大学生。我</p>
+                    <p>用简单的python，JavaScript语言进行编程，还</p>
+                    <p>能使能较为熟练的使用ai工具。</p>
+                    <a href="about.html">了解更多--→</a>
+                </article>
+            </div>
+
+
         </section>
+        <!-- 复用，轻而易举啊！ -->
+        <section id="games" class="stage_off">
+            <div class="preview_list">
+                <article id="game_arknights" class="game_arknights preview_card">
 
-        <section id="projects" class="stage_off">
-            <h1>做的项目</h1>
-            <p>These are my projects.</p>
-        </section>
-
-        <section id="hobbies" class="stage_off">
-            <h1>爱好</h1>
-            <p>These are my hobbies.</p>
-        </section>
-
-        <script>
-            const nav = document.getElementById("main_nav");
-
-            let currentSection = document.getElementById("overview");
-            let currentButton = nav.querySelector('[data-section="overview"]');
-
-            function switch_section(nextSection, nextButton) {
-                currentSection.classList.remove("stage_on");
-                currentSection.classList.add("stage_off");
-                currentButton.classList.remove("active");
-
-                // 把打开的关上
-  
-                nextSection.classList.remove("stage_off");
-                nextSection.classList.add("stage_on");
-                nextButton.classList.add("active");
-                // 把对应的打开
-
-                currentSection = nextSection;
-                currentButton = nextButton;
-                // 更新
-
-            }
+                    <img src="static/Arknights.png" alt="Arknights">
+       
+                    <div class="preview_caption">
+                        <h2>明日方舟</h2>
+                       
+                    </div>
+                </article>
+                <article id="game_warthunder" class="game_warthunder preview_card" hidden>
             
+                    <img src="static/sdwt.jpg" alt="War Thunder">
 
-            nav.addEventListener("click", function(event) {
-                const button = event.target.closest("button[data-section]");
-                if (!button) 
-                return;
-                const sectionId = button.getAttribute("data-section");
-                const nextSection = document.getElementById(sectionId);
+                    <div class="preview_caption">
+                        <h2>战争雷霆</h2>
+                    </div>
+                </article>
+                <article id="game_elden_ring" class="game_elden_ring preview_card" hidden>
+                 
+                    <img src="static/ChatGPT.png" alt="Elden Ring">
 
-                switch_section(nextSection, button);
-            });
+                    <div class="preview_caption">
+                        <h2>Elden Ring</h2>
+                        
+                       
+                    </div>
+                </article>
+            </div>
+            <nav class="x_nav" >
+                <button type="button" data-item="game_arknights" aria-controls="game_arknights" aria-pressed="true" class="active">
+                    <img src="static/Arknights.png" alt="">
+                    <span>明日方舟</span>
+                </button>
+                <button type="button" data-item="game_warthunder" aria-controls="game_warthunder" aria-pressed="false">
+                    <img src="static/sdwt.jpg" alt="">
+                    <span>战争雷霆</span>
+                </button>
+                <button type="button" data-item="game_elden_ring" aria-controls="game_elden_ring" aria-pressed="false">
+                    <img src="static/ChatGPT.png" alt="">
+                    <span>Elden Ring</span>
+                </button>
+            </nav>
+        </section>
 
-        </script>
-    </body>
 
-    <style>
-        body{
-            background-color: #202020;
-        }
-        #column{
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 13.9vw;
-            width: 2px;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(89, 89, 89, 0.55) 0 2px,
-                transparent 2px 5px
-            );
 
-        }
-        .stage_off{
-            display: none;
-        }
-        .stage_on{
-            display: block;
-        }
+        <section id="anime" class="stage_off">
+            <div class="preview_list">
+                <article id="Princess_kaguya" class="Princess_kaguya preview_card">
+
+                    <img src="static/kaguya_hime.png" alt="辉夜姬">
+       
+                    <div class="preview_caption">
+                        <h2>超时空辉夜姬！</h2>
+                        <p>千年等待，只为那此刻的相遇。</p>
+                    </div>
+                </article>
+                <article id="summer_pocket" class="summer_pocket preview_card" hidden>
+            
+                    <img src="static/shiroha.png" alt="夏日口袋">
+
+                    <div class="preview_caption">
+                        <h2>夏日口袋</h2>
+                    </div>
+                </article>
+                <article id="plastic_memory" class="plastic_memory preview_card" hidden>
+                 
+                    <img src="static/key.jpg" alt="可塑性记忆">
+
+                    <div class="preview_caption">
+                        <h2>可塑性记忆</h2>
+                        <p>究竟是何种温润而冰冷、轻盈又沉重的信物，才能同时代表初遇的羞怯、相爱的雀跃、离别的无可挽回，和明知渺茫却依然真挚的重逢祈愿？</p>
+                        <p>……我最终拾起一枚，在摩天轮的最后一圈里交换的戒指。</p>
+                    </div>
+                </article>
+            </div>
+            <nav class="x_nav" >
+                <button type="button" data-item="Princess_kaguya" aria-controls="Princess_kaguya" aria-pressed="true" class="active">
+                    <img src="static/kaguya_hime.png" alt="">
+                    <span>超时空辉夜姬！</span>
+                </button>
+                <button type="button" data-item="summer_pocket" aria-controls="summer_pocket" aria-pressed="false">
+                    <img src="static/shiroha.png" alt="">
+                    <span>夏日口袋</span>
+                </button>
+                <button type="button" data-item="plastic_memory" aria-controls="plastic_memory" aria-pressed="false">
+                    <img src="static/key.jpg" alt="">
+                    <span>可塑性记忆</span>
+                </button>
+            </nav>
+        </section>
+
+        <section id="life" class="stage_off">
+            <h1>生活记录</h1>
+
+            <div class="life_grid">
                 
-        nav button.active {
-            background: #e8e6dc;
-            color: #151515;
-
-            text-shadow:
-                0 0 1.387px #e1e1e0,
-                0 0 2.774px #e1e1e0;
-        }
-
-        nav button.active small {
-            opacity: 0;
-}
-        nav button:not(.active):hover {
-            background: #e8e6dc;
-            color: #151515;
-        }
-
-        nav button.active::before {
-            background-color: #dabb65;
-
-            /* 鹰角：3.25rem */
-            height: 36.063px;
-        }
-
-        nav button small {
-            position: relative;
-            z-index: 2;
-
-            color: rgba(255, 255, 255, 0.3);
-
-            /* 鹰角：.85308rem */
-            font-size: 9.466px;
-
-            /* 鹰角：-.01704rem */
-            letter-spacing: -0.189px;
-
-            line-height: 1.172;
-
-            transition:
-                color 0.2s,
-                opacity 0.2s;
-        }
-
-        nav button span{
-            position: relative;
-            z-index: 2;
-
-            /* 鹰角：1.56396rem */
-            font-size: 17.354px;
-
-            font-weight: 400;
-
-            /* 中文布局原版 */
-            line-height: 1.159;
-
-            /* 鹰角：-.03132rem */
-            letter-spacing: -0.348px;
-
-            transition:
-                color 0.2s,
-                text-shadow 0.2s;
-        }
-
-        /* nav button {
-
-            border-radius: 6px;
-
-            width: 100%;
-            height: 8.5vh;
+                <img src="static/life_sleep.jpg" alt="睡觉">
+                <img src="static/life_sunset.jpg" alt="晚霞好看">
+                <img src="static/life_cat.jpg" alt="记录猫猫">
+                <img src="static/life_character.jpg" alt="性转Ron">
+                <img src="static/life_coding.jpg" alt="写代码时加入意义不明的画">
+                <a href="life.html">更多---→</a>
+            </div>
+        </section>
+        <section id="exploring" class="stage_off">
             
+            <div id="all">
 
-            display: flex;
-            align-items: center;
 
-            border: none;
-            outline: none;
-            cursor: pointer;
+                <h1>思考与探索</h1>
+                <article id="one">
+                <span>01｜从一条弧线开始</span>
+                <small>我最初想做一个弧线导航栏，但还不知道怎样用代码实现。于是，我跟着 AI 一边尝试，一边理解元素的排列与定位，也开始体会到：把脑海中的形状搬到网页上，需要不断调整。</small>
+                <a href="exploring.html">--→</a>
+                </article>
+
+                <article id="two">
+                <span>02｜多一层导航</span>
+                <small>我希望纵向切换不同栏目，横向选择栏目里的内容。为了实现这个二维导航，我接触了 HTML、CSS 和 JavaScript 之间的配合：按钮怎样找到对应内容，页面怎样切换显示，以及怎样标记当前选中的项目。</small>
+                <a href="exploring.html">--→</a>
+                </article>
+
+                <article id="three">
+                <span>03｜用线条引导视线</span>
+                <small>做完导航后，我开始想：怎样让人更容易看懂页面的布局？我想起之前做导航的时候学到的 linear-gradient，尝试用渐变画出线条：用纵向虚线引导导航区域，再用横线提示内容展示的范围，让导航与内容在视觉上建立联系。</small>
+                <a href="exploring.html">--→</a>
+                </article>
             
+            </div>
 
-            padding-left: 20px;
-            
+        </section>
+        </main>
 
-            font-size: 0.9vw;
-            letter-spacing: 2px;
-
-            position: relative; 
-
-            color: #a0a0a0; 
-            background: rgba(255, 255, 255, 0.05);
-            
-
-            transition: all 0.3s ease;
-} */
-
-        nav button {
-            box-sizing: border-box;
-            position: relative;
-            z-index: 0;
-
-            /* 鹰角：16.25rem × 5.125rem */
-            width: 180.315px;
-            height: 56.869px;
-
-            /* 中文布局原版：
-            1.42176rem 0 0 1.99056rem */
-            padding: 15.776px 0 0 22.088px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-
-            border: 0;
-
-            /* 鹰角：.379rem */
-            border-radius: 4.205px;
-
-            /* 原版未选中底板 */
-            background: rgba(55, 55, 57, 0.6);
-
-            color: rgba(255, 255, 255, 0.92);
-
-            text-align: left;
-            cursor: pointer;
-
-            overflow: visible;
-
-            transition:
-                color 0.2s,
-                background-color 0.2s;
-        }
-
-
-        /* button::before {
-            content: "";
-            position:absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 15px;
-            background: #5d5d5a;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-} */
-        nav button::before {
-            content: "";
-
-            position: absolute;
-
-            top: 50%;
-
-            /* 鹰角：.875rem */
-            left: 9.709px;
-
-            transform: translateY(-50%);
-
-            /* .3125rem × 1rem */
-            width: 3.468px;
-            height: 11.096px;
-
-            background: #818081;
-
-            /* .1875rem */
-            border-radius: 2.081px;
-
-            transition:
-                height 0.2s,
-                background-color 0.2s;
-}
-        
-        nav button.active::after {
-            opacity: 0.5;
-}
-
-
-        nav button.active::before {
-            content: "";
-            position:absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 45px;
-            background: #d7b507cf;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-}
-
-
-        nav button::after {
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-
-            /* 从按钮左边向外延伸 */
-            right: 100%;
-
-            /* 鹰角：20rem */
-            width: 221.926px;
-
-            height: 100%;
-
-            background-color: #f7cd5c;
-
-            background-image: linear-gradient(
-                -45deg,
-
-                transparent 0,
-                transparent 20.5805%,
-
-                #fff 20.5805%,
-                #fff 29.4195%,
-
-                transparent 29.4195%,
-                transparent 70.5805%,
-
-                #fff 70.5805%,
-                #fff 79.4195%,
-
-                transparent 79.4195%,
-                transparent 100%
-            );
-
-            background-repeat: repeat;
-
-            /* 鹰角：.5rem .5rem */
-            background-size: 5.548px 5.548px;
-
-            -webkit-mask-image: linear-gradient(
-                270deg,
-                transparent 0,
-                #fff 5.548px,
-                #fff calc(100% - 110.963px),
-                transparent 100%
-            );
-
-            mask-image: linear-gradient(
-                270deg,
-                transparent 0,
-                #fff 5.548px,
-                #fff calc(100% - 110.963px),
-                transparent 100%
-            );
-
-            opacity: 0;
-
-            /* 放到按钮后面 */
-            z-index: -1;
-
-            pointer-events: none;
-
-            transition: opacity 0.2s;
-        }
-
-        /* nav {
-        position: fixed;
-
-        left: 13vw;
-        top: 50%;
-        transform: translateY(-50%);
-
-        width: 12vw;
-
-        display: flex;
-        flex-direction: column;
-        gap: 2vh;    } */
-
-        nav {
-        position: fixed;
-
-        left: 13vw;
-        top: 50%;
-        transform: translateY(-50%);
-
-        /* 鹰角：16.25rem */
-        width: 180.315px;
-
-        display: flex;
-        flex-direction: column;
-
-        /* 鹰角每个项目之间 1.4375rem */
-        gap: 15.951px;
-    }
-
-    </style>
+        <script src="js.js"></script>
+    </body>
 </html>

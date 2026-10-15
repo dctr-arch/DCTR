@@ -1,0 +1,692 @@
+
+
+        body{
+            background-color: #202020;
+        }
+        body section{
+            position: fixed;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            
+        }
+        #column{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 13.9vw;
+            width: 0.125rem;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(89, 89, 89, 0.55) 0 0.125rem,
+                transparent 0.125rem 0.3125rem
+            );
+        }
+        #row {
+            content: "";
+            position: fixed;
+            top: 16vh;
+            left: 13vw;
+            right: 13.2vw;
+            height: 0.125rem;
+            background: #c9ad5f;
+            pointer-events: none;
+        }
+        
+        .stage_off { display: none; }
+        .stage_on { display: block; }
+
+
+        #all{
+            display: flex;
+            flex-direction: column;
+            gap:1rem;   
+            justify-content: space-between;
+
+        }
+
+        #exploring article span {
+            color: #f5f4ee;
+            font-size: 1.15rem;
+            font-weight: 600;   
+            display: block;
+   
+}
+#exploring article small,#exploring article a {
+    display: block;
+}
+
+
+       
+        #exploring article {
+            padding: 1.25rem;
+            border: 1px solid rgba(232, 230, 220, 0.2);
+            border-left: 3px solid #c9ad5f;
+            background: #202424;
+}
+
+        
+        /* 定位总览的外框，内部按钮让 Grid 自动分配 */
+        #overview {
+            top: 19vh;
+            left: max(27.3vw, calc(13vw + 11.2696875rem + 3vw));
+            right: 13.2vw;
+            bottom: 11vh;
+            /* 不知道被哪里选中了，不加这一条按钮会飞走 */
+            transform: none;
+            
+        }
+
+        #overview_nav {
+            display: grid;
+            width: 100%;
+            height: 100%;
+
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+
+            grid-template-areas:
+                "about about about life life life"
+                "games games anime anime exploring exploring";
+                ;
+            gap: 0.25rem;
+
+            box-sizing: border-box;
+            border: 0.0625rem solid rgba(232, 230, 220, 0.35);
+            background: #171919;
+            color: #f5f4ee;
+        }
+
+        #overview_nav button {
+            border-radius: 10px;    
+            padding: 1rem;
+
+            color: #c5c4c5;
+            background-color: #202020;
+            box-sizing: border-box;
+        }
+        #overview_nav button:hover{
+            color: #202020 ;
+            background-color:#c5c4c5;
+        }
+
+        #overview_nav [data-section="about"] {
+            grid-area: about;
+        }
+
+        #overview_nav [data-section="games"] {
+            grid-area: games;
+        }
+
+        #overview_nav [data-section="anime"] {
+            grid-area: anime;
+        }
+
+        #overview_nav [data-section="life"] {
+            grid-area: life;
+        }
+
+        #overview_nav [data-section="exploring"] {
+            grid-area: exploring;
+        }
+        /* 搞了半天原来是拼写错误 */
+
+
+
+
+        /* #self_introduction article#caption    */
+        h1{
+            position: relative; 
+            top:0rem;
+            left:0rem; 
+            width: fit-content;
+            margin: 0 0 0.5rem;
+            padding: 0.25rem 1rem;
+            border-left: 0.1875rem solid #f5f4ee; 
+            /* 白色左边框 */
+            background: linear-gradient(
+                90deg,
+                 rgba(136, 150, 155, 0.5), transparent
+                );
+            font-size: clamp(1.5rem, 2vw, 2.75rem); 
+            line-height: 1.25;
+        }
+        /* 参数由ai计算，我实在对不齐我做的这个窗口，其他的复杂数字也是让ai算出位置的 */
+        #life {     
+            top: 19vh;
+            left: max(27.3vw, calc(13vw + 11.2696875rem + 3vw));
+            right: 13.2vw;
+            bottom: 11vh;
+            transform: none;
+
+            overflow:auto ; 
+            /* 原本想法是每张图都做适配，但是这太花时间了，我也没有图片附件额度了，没法修。只能这样滑动，视觉效果会差一点，也没有地方写字了 */
+            color: #f5f4ee;
+        }
+
+        #life .life_grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2,1fr);
+
+            gap: 0.3rem;
+            align-items: start;
+        }
+
+        #life .life_grid img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        #main_nav button.active {
+            background: #e8e6dc;
+            color: #151515;
+
+            text-shadow:
+                0 0 0.0866875rem #e1e1e0,
+                0 0 0.173375rem #e1e1e0;
+        }
+
+        #main_nav button.active small {
+            opacity: 0;
+}
+        #main_nav button:not(.active):hover {
+            background: #e8e6dc;
+            color: #151515;
+        }
+
+        /* #main_nav button.active::before {
+            background-color: #dabb65;
+
+            
+            height: 2.2539375rem;
+        } */
+
+        #main_nav button small {
+            position: relative;
+            z-index: 2;
+
+            color: rgba(255, 255, 255, 0.3);
+
+            /* 鹰角：.85308rem */
+            font-size: 0.591625rem;
+
+            /* 鹰角：-.01704rem */
+            letter-spacing: -0.0118125rem;
+
+            line-height: 1.172;
+
+            transition:
+                color 0.2s,
+                opacity 0.2s;
+        }
+
+        #main_nav button span{
+            position: relative;
+            z-index: 2;
+
+            
+            font-size: 1.084625rem;
+
+            font-weight: 400;
+
+            
+            line-height: 1.159;
+
+            
+            letter-spacing: -0.02175rem;
+
+            transition:
+                color 0.2s,
+                text-shadow 0.2s;
+        }
+
+        /* #main_nav button {
+
+            border-radius: 0.375rem;
+
+            width: 100%;
+            height: 8.5vh;
+            
+
+            display: flex;
+            align-items: center;
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+            
+
+            padding-left: 1.25rem;
+            
+
+            font-size: 0.9vw;
+            letter-spacing: 0.125rem;
+
+            position: relative; 
+
+            color: #a0a0a0; 
+            background: rgba(255, 255, 255, 0.05);
+            
+
+            transition: all 0.3s ease;
+} */
+
+        #main_nav button {
+            box-sizing: border-box;
+            position: relative;
+            z-index: 0;
+
+            width: 100%;
+            height: 3.5543125rem;
+
+
+            padding: 0.986rem 0 0 1.3805rem;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            border: 0;
+
+
+            border-radius: 0.2628125rem;
+
+
+            background: rgba(55, 55, 57, 0.6);
+
+            color: rgba(255, 255, 255, 0.92);
+
+            text-align: left;
+            cursor: pointer;
+
+            overflow: visible;
+
+            transition:
+                color 0.2s,
+                background-color 0.2s;
+        }
+
+
+        /* #main_nav button::before {
+            content: "";
+            position:absolute;
+            top: 50%;
+            left: 0.625rem;
+            transform: translateY(-50%);
+            width: 0.25rem;
+            height: 0.9375rem;
+            background: #5d5d5a;
+            border-radius: 0.125rem;
+            transition: all 0.3s ease;
+} */
+        #main_nav button::before {
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+
+
+            left: 0.6068125rem;
+
+            transform: translateY(-50%);
+
+
+            width: 0.21675rem;
+            height: 0.6935rem;
+
+            background: #818081;
+
+
+            border-radius: 0.1300625rem;
+
+            transition:
+                height 0.2s,
+                background-color 0.2s;
+}
+        
+        #main_nav button.active::after {
+            opacity: 0.5;
+}
+
+
+        #main_nav button.active::before {
+            content: "";
+            position:absolute;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+
+            width: 0.25rem;
+            height: 2.8125rem;
+
+
+            background: #d7b507cf;
+            border-radius: 0.125rem;
+
+
+            transition: all 0.3s ease;
+}
+
+
+        #main_nav button::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+
+            right: 100%;
+
+
+            width: 13.870375rem;
+
+            height: 100%;
+
+            background-color: #f7cd5c;
+            /* 画神秘斜线，增加质感 */
+            background-image: linear-gradient(
+                -45deg,
+                
+                transparent 0,
+                transparent 20.5805%,
+
+                #fff 20.5805%,
+                #fff 29.4195%,
+
+                transparent 29.4195%,
+                transparent 70.5805%,
+                /* ai设定的神秘数值，谁也不知道为什么一个周期为什么要画两条线 */
+
+                #fff 70.5805%,
+                #fff 79.4195%,
+
+                transparent 79.4195%,
+                transparent 100%
+            );
+            background-repeat: repeat;
+            background-size: 0.34675rem 0.34675rem;
+            /* 上面写的是一个周期，现在让T变小，就可以变成斜着的白线的效果了 */
+
+
+
+            /* 透明渐变过渡 */
+            -webkit-mask-image: linear-gradient(
+                270deg,
+                transparent 0,
+                #fff 0.34675rem,
+                #fff calc(100% - 6.9351875rem),
+                transparent 100%
+            );
+
+            mask-image: linear-gradient(
+                270deg,
+                transparent 0,
+                #fff 0.34675rem,
+                #fff calc(100% - 6.9351875rem),
+                transparent 100%
+            );
+
+            opacity: 0;
+
+
+            z-index: -1;
+
+            pointer-events: none;
+
+            transition: opacity 0.2s;
+        }
+
+        /* #main_nav {
+        position: fixed;
+
+        left: 13vw;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 12vw;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;    } */
+
+        #main_nav {
+        position: fixed;
+
+        left: 13vw;
+
+        top: 50%;
+        transform: translateY(-50%);
+        /* 先把块的顶部放在中轴线，然后往上50%自己的高，天才的写法 */
+
+        width: 11.2696875rem;
+
+        display: flex;
+        flex-direction: column;
+
+
+        gap: 0.9969375rem;
+    }
+
+
+
+
+
+
+
+
+#anime,#games,#about,#exploring{
+    top: 19vh;
+    left: max(27.3vw, calc(13vw + 11.2696875rem + 3vw));
+    right: 13.2vw;
+    bottom: 11vh;
+    transform: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 0.0625rem solid rgba(232, 230, 220, 0.35);
+    background: #171919;
+    color: #f5f4ee;
+}
+
+#anime .preview_list,#games .preview_list,
+#anime .preview_card,#games .preview_card {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+}
+/* 让hiddden的消失 */
+#anime .preview_card[hidden] {
+    display: none;
+}
+
+#games .preview_card[hidden] {
+    display: none;
+}
+
+#anime .preview_card > img {
+    display: block;      /*感觉写不写这行没有区别*/
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#games .preview_card > img {
+    display: block;      /*感觉写不写这行没有区别*/
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+
+
+
+
+/* 为老婆的照片仔细地、精细地做适配 */
+#anime #Princess_kaguya > img{
+    object-position: center 25%;
+}
+#anime #plastic_memory > img {
+    object-position: center 35%;
+}
+
+#anime .preview_card::after,#games .preview_card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 25%, rgba(10, 15, 17, 0.15) 45%, rgba(10, 15, 17, 0.85) 100%);
+    pointer-events: none;
+}
+/* 动漫 整个字幕 */
+#anime .preview_caption,#games .preview_caption {
+    position: absolute;
+    z-index: 1;
+    left: 3.5%;
+    right: 3.5%;
+    bottom: calc(clamp(3.5rem, 9vh, 6.5rem) + 7vh);
+    max-height: 55%;
+    overflow: auto;
+    text-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.65);
+}
+/* 动漫 小字标题 */
+#anime .preview_caption h2 {
+    width: fit-content;
+    margin: 0 0 0.5rem;
+    padding: 0.25rem 1rem;
+    border-left: 0.1875rem solid #f5f4ee; 
+     background: linear-gradient(90deg, rgba(34, 39, 41, 0.5), transparent);
+    font-size: clamp(1.5rem, 2vw, 2.75rem); 
+    line-height: 1.25;
+}
+
+#games .preview_caption h2 {
+    width: fit-content;
+    margin: 0 0 0.5rem;
+    padding: 0.25rem 1rem;
+    border-left: 0.1875rem solid #f5f4ee; 
+    background: linear-gradient(90deg, rgba(34, 39, 41, 0.5), transparent);
+    font-size: clamp(1.5rem, 2vw, 2.75rem);
+    line-height: 1.25;
+}
+
+/* 动漫 小字解释 */
+#anime .preview_caption p {
+    max-width: min(75%, 42rem);
+    margin: 0.375rem 0 0;
+    color: #e8e6dc;
+    font-size: clamp(0.9rem, 1vw, 1.125rem);
+    line-height: 1.5;
+}
+
+
+
+/* 动漫 横向导航 */
+.x_nav {
+    position: absolute;
+    z-index: 2;
+    left: 9%;
+    right: 9%;
+    bottom: 4vh;
+    display: flex;
+    justify-content: center;
+    gap: 1.2%;
+}
+/* 动漫 导航按钮 */
+.x_nav button {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 15rem;
+    height: clamp(3.5rem, 9vh, 6.5rem);
+    box-sizing: border-box;
+    padding: 0;
+    overflow: hidden;
+    border: 0.0625rem solid transparent;
+    background: #333839;
+    color: #f5f4ee;
+    text-align: left;
+    cursor: pointer;
+}
+/* 动漫 按钮的图片 */
+.x_nav button img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5) saturate(0.65);
+    transition: filter 0.2s;
+}
+/* 让动漫导航按钮激活变亮 */
+.x_nav button.active {
+    border-color: #f5f4ee;
+}
+
+/* 动漫按钮 选中变亮 一个亮度感觉就很棒了 */
+.x_nav button.active img,
+.x_nav button:hover img {
+    filter: brightness(0.9) saturate(1);
+}
+
+/* 动漫 按钮的字 */
+.x_nav button span {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 1.25rem 0.5rem 0.5rem;
+    background: linear-gradient(transparent, rgba(8, 12, 14, 0.8));
+    font-size: clamp(0.7rem, 0.8vw, 0.95rem);
+
+    line-height: 1.25;
+    font-weight: 600;
+}
+
+
+
+
+
+/* ai写的适配，这个数值我不太可能自己算明白 */
+/* 会把很窄的屏幕的按钮放到上面去，而不是继续放在左边，这样就能让内容有更多空间了 */
+@media (max-width: 60rem) {
+    #overview,
+    #life {
+        top: 16vh;
+        left: 5vw;
+        right: 5vw;
+        bottom: 5vh;
+    }
+
+    #column { display: none; }
+    body::before { top: 13vh; left: 5vw; right: 5vw; }
+    #main_nav {
+        top: 3vh;
+        left: 5vw;
+        right: 5vw;
+        width: auto;
+        transform: none;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    #main_nav button {
+        min-width: 0;
+        height: auto;
+        min-height: 3rem;
+        padding: 0.75rem 0.5rem;
+        align-items: center;
+    }
+    #main_nav button span { font-size: 0.9rem; }
+    #main_nav button small,
+    #main_nav button::before,
+    #main_nav button::after { display: none; }
+    #anime,#games{ top: 16vh; left: 5vw; right: 5vw; bottom: 5vh; }
+    #anime .preview_caption,#games .preview_caption { left: 5%; right: 5%; }
+    #anime .preview_caption p,#games .preview_caption p { max-width: 100%; }
+    .x_nav { left: 5%; right: 5%; gap: 0.5rem; }
+}
+
+    
